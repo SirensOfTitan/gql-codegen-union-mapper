@@ -1,0 +1,15 @@
+
+type Movie {
+  id: ID!
+  title: String!
+  length: Int
+}
+
+type Book {
+  id: ID!
+  title: String!
+  author: String!
+  pages: Int
+}
+
+union MovieLike = Movie | Book

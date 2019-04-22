@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.1.1-alpha-ae85ac67.17",
+    "@graphql-codegen/typescript": "^1.1.1-alpha-ae85ac67.17",
+    "@graphql-codegen/typescript-resolvers": "^1.1.1-alpha-ae85ac67.17"
+  },
+  "dependencies": {
+    "graphql": "^14.2.1"
+  }
+}
