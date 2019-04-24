@@ -1,4 +1,9 @@
 
+type NonInterfaceHasNarrative {
+  narrative: MovieLike!
+  movie: Movie!
+}
+
 type Movie {
   id: ID!
   title: String!
@@ -16,4 +21,5 @@ union MovieLike = Movie | Book
 
 interface IHasNarrative {
   narrative: MovieLike!
+  movie: Movie!
 }

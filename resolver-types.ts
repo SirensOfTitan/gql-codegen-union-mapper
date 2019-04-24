@@ -17,6 +17,7 @@ export type Book = {
 
 export type IHasNarrative = {
   narrative: MovieLike;
+  movie: Movie;
 };
 
 export type Movie = {
@@ -26,6 +27,11 @@ export type Movie = {
 };
 
 export type MovieLike = Movie | Book;
+
+export type NonInterfaceHasNarrative = {
+  narrative: MovieLike;
+  movie: Movie;
+};
 import { MovieEntity } from "./types";
 
 import { GraphQLResolveInfo } from "graphql";
@@ -103,12 +109,17 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   String: Scalars["String"];
   Boolean: Scalars["Boolean"];
+  NonInterfaceHasNarrative: Omit<NonInterfaceHasNarrative, "movie"> & {
+    movie: ResolversTypes["Movie"];
+  };
+  MovieLike: ResolversTypes["Movie"] | ResolversTypes["Book"];
   Movie: MovieEntity;
   ID: Scalars["ID"];
   Int: Scalars["Int"];
   Book: Book;
-  MovieLike: ResolversTypes["Movie"] | ResolversTypes["Book"];
-  IHasNarrative: IHasNarrative;
+  IHasNarrative: Omit<IHasNarrative, "movie"> & {
+    movie: ResolversTypes["Movie"];
+  };
 };
 
 export type BookResolvers<
@@ -127,6 +138,7 @@ export type IHasNarrativeResolvers<
 > = {
   __resolveType: TypeResolveFn<null, ParentType, ContextType>;
   narrative?: Resolver<ResolversTypes["MovieLike"], ParentType, ContextType>;
+  movie?: Resolver<ResolversTypes["Movie"], ParentType, ContextType>;
 };
 
 export type MovieResolvers<
@@ -145,11 +157,20 @@ export type MovieLikeResolvers<
   __resolveType: TypeResolveFn<"Movie" | "Book", ParentType, ContextType>;
 };
 
+export type NonInterfaceHasNarrativeResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["NonInterfaceHasNarrative"]
+> = {
+  narrative?: Resolver<ResolversTypes["MovieLike"], ParentType, ContextType>;
+  movie?: Resolver<ResolversTypes["Movie"], ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   Book?: BookResolvers<ContextType>;
   IHasNarrative?: IHasNarrativeResolvers;
   Movie?: MovieResolvers<ContextType>;
   MovieLike?: MovieLikeResolvers;
+  NonInterfaceHasNarrative?: NonInterfaceHasNarrativeResolvers<ContextType>;
 };
 
 /**
