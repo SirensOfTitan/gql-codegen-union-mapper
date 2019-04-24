@@ -15,6 +15,10 @@ export type Book = {
   pages?: Maybe<Scalars["Int"]>;
 };
 
+export type IHasNarrative = {
+  narrative: MovieLike;
+};
+
 export type Movie = {
   id: Scalars["ID"];
   title: Scalars["String"];
@@ -103,7 +107,8 @@ export type ResolversTypes = {
   ID: Scalars["ID"];
   Int: Scalars["Int"];
   Book: Book;
-  MovieLike: MovieLike;
+  MovieLike: ResolversTypes["Movie"] | ResolversTypes["Book"];
+  IHasNarrative: IHasNarrative;
 };
 
 export type BookResolvers<
@@ -114,6 +119,14 @@ export type BookResolvers<
   title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   author?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   pages?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+};
+
+export type IHasNarrativeResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes["IHasNarrative"]
+> = {
+  __resolveType: TypeResolveFn<null, ParentType, ContextType>;
+  narrative?: Resolver<ResolversTypes["MovieLike"], ParentType, ContextType>;
 };
 
 export type MovieResolvers<
@@ -134,6 +147,7 @@ export type MovieLikeResolvers<
 
 export type Resolvers<ContextType = any> = {
   Book?: BookResolvers<ContextType>;
+  IHasNarrative?: IHasNarrativeResolvers;
   Movie?: MovieResolvers<ContextType>;
   MovieLike?: MovieLikeResolvers;
 };

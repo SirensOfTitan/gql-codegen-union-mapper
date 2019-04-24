@@ -13,3 +13,7 @@ type Book {
 }
 
 union MovieLike = Movie | Book
+
+interface IHasNarrative {
+  narrative: MovieLike!
+}

@@ -1,10 +1,12 @@
 {
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.1.1-alpha-ae85ac67.17",
-    "@graphql-codegen/typescript": "^1.1.1-alpha-ae85ac67.17",
-    "@graphql-codegen/typescript-resolvers": "^1.1.1-alpha-ae85ac67.17"
+    "@graphql-codegen/cli": "^1.1.1",
+    "@graphql-codegen/core": "../graphql-code-generator/packages/graphql-codegen-core",
+    "@graphql-codegen/typescript": "^1.1.1",
+    "@graphql-codegen/typescript-resolvers": "^1.1.1",
+    "graphql": "14.2.1"
   },
-  "dependencies": {
-    "graphql": "^14.2.1"
+  "resolutions": {
+    "graphql": "14.2.1"
   }
 }
